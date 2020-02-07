@@ -1,8 +1,8 @@
 # README
 
-##Sorena
+## Sorena
 
-##概要
+## 概要
 ユーザーが駅ごとにローカルネタを投稿するアプリ
 
 ## コンセプト
@@ -23,20 +23,20 @@
 4. Netaに関するコメント機能
 5. ユーザー管理機能
 
-###バージョン情報
+### バージョン情報
 ruby 2.6.5
 Rails 5.2.4.1
-###カタログ設計
+### カタログ設計
 https://docs.google.com/spreadsheets/d/1RtC_5ifdGQawObQW1Nrd6X_kwMgno-VV-vMizaLEm4o/edit#gid=0
-###テーブル定義書
+### テーブル定義書
 https://docs.google.com/spreadsheets/d/1RtC_5ifdGQawObQW1Nrd6X_kwMgno-VV-vMizaLEm4o/edit#gid=663056640
-###ER図
+### ER図
 https://docs.google.com/spreadsheets/d/1RtC_5ifdGQawObQW1Nrd6X_kwMgno-VV-vMizaLEm4o/edit#gid=1268718220
-###画面遷移図
+### 画面遷移図
 https://docs.google.com/spreadsheets/d/1RtC_5ifdGQawObQW1Nrd6X_kwMgno-VV-vMizaLEm4o/edit#gid=1425597137
-###ワイヤーフレーム
+### ワイヤーフレーム
 https://docs.google.com/spreadsheets/d/1RtC_5ifdGQawObQW1Nrd6X_kwMgno-VV-vMizaLEm4o/edit#gid=1788653730
-###使用予定Gem
+### 使用予定Gem
 ログイン機能　device
 検索機能　ransack
 cssフレームワーク　bootstrap
