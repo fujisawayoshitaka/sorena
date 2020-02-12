@@ -1,0 +1,23 @@
+<h1>ネタ一覧</h1>
+<p><%= notice %></p>
+<table>
+  <tr>
+    <th>一言</th>
+    <th>写真</th>
+  </tr>
+<% @netas.each do |neta| %>
+  <tr>
+    <td><%= neta.content %></td>
+    <% if neta.image.blank?%>
+    <td><%= "no image"  %></td>
+    <% else%>
+    <td><%= image_tag(neta.image.url)  %></td>
+    <% end %>
+    <td><%= link_to '詳細を確認する', neta_path(neta.id) %></td>
+    <td><%= link_to "ネタを編集する", edit_neta_path(neta.id), data: { confirm: '本当に編集していいですか？' } %></td>
+    <td><%= link_to 'ブログを削除する', neta_path(neta.id), method: :delete, data: { confirm: '本当に削除していいですか？' }  %></td>
+  </tr>
+<% end %>
+</table>
+<br>
+<%= link_to '新しくネタを投稿する', new_neta_path %>

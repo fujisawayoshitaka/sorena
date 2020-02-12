@@ -1,0 +1,12 @@
+<p id="notice"><%= notice %></p>
+<p>
+  <strong>Image:</strong>
+  <% if @neta.image.blank?%>
+  <%= "no image"  %>
+  <% else%>
+  <%= image_tag(@neta.image.url)  %>
+  <% end %>
+
+</p>
+<%= link_to 'Edit', edit_neta_path(@neta) %> |
+<%= link_to 'Back', netas_path %>
