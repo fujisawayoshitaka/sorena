@@ -1,21 +1,33 @@
-<h1>ネタ一覧</h1>
-<p><%= notice %></p>
+<% if current_user.try(:admin?) %>
+  <h1>ネタ一覧_admin</h1>
+<% else %>
+  <h1>ネタ一覧</h1>
+<% end %>
 <table>
   <tr>
+    <th>投稿者</th>
     <th>一言</th>
     <th>写真</th>
+    <th>それな数</th>
   </tr>
 <% @netas.each do |neta| %>
   <tr>
+    <td><%= neta.user.name %></td>
     <td><%= neta.content %></td>
     <% if neta.image.blank?%>
     <td><%= "no image"  %></td>
     <% else%>
     <td><%= image_tag(neta.image.url)  %></td>
     <% end %>
+    <td><%= neta.favorites.count %></td>
     <td><%= link_to '詳細を確認する', neta_path(neta.id) %></td>
+    <% if neta.user == current_user %>
     <td><%= link_to "ネタを編集する", edit_neta_path(neta.id), data: { confirm: '本当に編集していいですか？' } %></td>
-    <td><%= link_to 'ブログを削除する', neta_path(neta.id), method: :delete, data: { confirm: '本当に削除していいですか？' }  %></td>
+    <td><%= link_to 'ネタを削除する', neta_path(neta.id), method: :delete, data: { confirm: '本当に削除していいですか？' }  %></td>
+    <% else%>
+    <td></td>
+    <% end %>
+
   </tr>
 <% end %>
 </table>

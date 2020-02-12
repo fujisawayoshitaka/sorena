@@ -1,5 +1,6 @@
 class NetasController < ApplicationController
     before_action :set_neta, only: [:show, :edit, :update, :destroy]
+    before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
 
   def index
     @netas = Neta.all
@@ -10,7 +11,7 @@ class NetasController < ApplicationController
   end
 
   def create
-    @neta = Neta.new(neta_params)
+    @neta = current_user.netas.build(neta_params)
     if @neta.save
       redirect_to netas_path, notice: "ネタを作成しました！"
     else
@@ -19,7 +20,9 @@ class NetasController < ApplicationController
   end
 
   def show
-
+    if current_user.present?
+      @favorite = current_user.favorites.find_by(neta_id: @neta.id)
+    end
   end
 
   def edit
@@ -40,8 +43,7 @@ class NetasController < ApplicationController
   end
 
   def confirm
-    @neta = Neta.new(neta_params)
-    render :new if @neta.invalid?
+    @neta = current_user.netas.build(neta_params)
   end
 
   private
