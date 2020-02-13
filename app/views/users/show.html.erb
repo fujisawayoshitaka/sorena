@@ -8,3 +8,12 @@
     <%= @user.profile  %>
   <% end %>
 </p>
+<p>登録駅 :
+  <% if @user.stations.blank? %>
+    <%= "登録してません"  %>
+  <% else%>
+    <% @user.stations.each do |station| %>
+      <%= station.name %>
+    <% end %>
+  <% end %>
+</p>
