@@ -20,6 +20,8 @@ class NetasController < ApplicationController
   end
 
   def show
+    @comments = @neta.comments
+    @comment = @neta.comments.build
     if current_user.present?
       @favorite = current_user.favorites.find_by(neta_id: @neta.id)
     end

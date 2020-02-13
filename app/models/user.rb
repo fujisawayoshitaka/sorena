@@ -6,4 +6,5 @@ class User < ApplicationRecord
          has_many :netas, dependent: :destroy
          has_many :favorites, dependent: :destroy
          has_many :favorite_netas, through: :favorites, source: :neta
+         has_many :comments, dependent: :destroy
 end

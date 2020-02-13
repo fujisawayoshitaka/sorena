@@ -1,0 +1,13 @@
+<ul>
+  <% comments.each do |comment| %>
+    <% if comment.id.present? %>
+      <li>
+        <p><%= comment.user.name + "さんの投稿" %></p>
+        <p><%= comment.content %></p>
+        <% if comment.user == current_user %>
+        <p><%= link_to 'コメントを削除する', neta_comment_path(comment.neta_id, comment.id), method: :delete, remote: true %></p>
+        <% end %>
+      </li>
+    <% end %>
+  <% end %>
+</ul>

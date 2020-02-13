@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   }
   resources :users, only: [:show]
   resources :netas do
+    resources :comments
     collection do
       post :confirm
     end
