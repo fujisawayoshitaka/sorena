@@ -13,7 +13,7 @@
   <% if @neta.stations.empty?%>
   <%= "登録してません"  %>
   <% else%>
-  <%= @neta.stations.each do |station| %>
+  <% @neta.stations.each do |station| %>
     <%= station.name %>
   <% end %>
   <% end %>

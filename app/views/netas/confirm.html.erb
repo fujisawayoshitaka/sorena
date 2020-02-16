@@ -6,6 +6,9 @@
   <%= image_tag(@neta.image.url) if @neta.image && @neta.image.url %>
   <%= form.hidden_field :content %>
   <%= form.hidden_field :image_cache %>
+  <% @neta.station_ids.each do |id| %>
+      <%= form.hidden_field :station_ids, multiple: true, value: id %>
+  <% end %>
   <%= form.submit "投稿する" %>
 <% end %>
 <%= form_with(model:@neta, url:new_neta_path, local:true, method:"get") do |form| %>

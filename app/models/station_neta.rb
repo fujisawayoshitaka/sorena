@@ -1,4 +1,4 @@
 class StationNeta < ApplicationRecord
-  belongs_to :station
-  belongs_to :neta
+  belongs_to :station#, optional: true
+  belongs_to :neta, optional: true
 end

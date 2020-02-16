@@ -11,6 +11,7 @@ class NetasController < ApplicationController
   end
 
   def create
+    #binding.pry
     @neta = current_user.netas.build(neta_params)
     if @neta.save
       redirect_to netas_path, notice: "ネタを作成しました！"
@@ -51,7 +52,7 @@ class NetasController < ApplicationController
   private
 
   def neta_params
-    params.require(:neta).permit(:image, :image_cache, :content)
+    params.require(:neta).permit(:image, :image_cache, :content, station_ids: [])
   end
 
   def set_neta

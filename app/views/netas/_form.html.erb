@@ -19,10 +19,15 @@
     <%= form.label :image %>
     <%= form.file_field :image %>
   </div>
-
-  <div class="field">
-    <%= form.collection_check_boxes(:station_ids, Station.all, :id, :name) %>
-  </div>
+  <%  Station.all.each do |station| %>
+      <% if action_name == 'new' || action_name == 'create' %>
+        <%= form.check_box :station_ids, { multiple: true, checked: station[:checked], disabled: station[:disabled], include_hidden: false}, station[:id], "" %>
+        <station><%= station.name %></station>
+      <% elsif action_name == 'edit' || action_name == 'update' %>
+        <%= form.check_box :station_ids, { multiple: true, checked: @neta.station_ids.include?(station.id), disabled: station[:disabled], include_hidden: false}, station[:id], "" %>
+        <station><%= station.name %></station>
+      <% end %>
+    <% end %>
 
   <%= form.submit %>
 <% end %>
