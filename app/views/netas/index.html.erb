@@ -3,12 +3,22 @@
 <% else %>
   <h1>ネタ一覧</h1>
 <% end %>
+
+<%= search_form_for @search do |f| %>
+  <% Station.all.each do |station| %>
+    <%= f.check_box :stations_id_eq_any, { multiple: true, checked: station[:checked], disabled: station[:disabled], include_hidden: false }, station[:id] %>
+    <station><%= station.name %></station>
+  <% end %>
+      <%= f.submit "検索" %>
+  <% end %>
 <table>
   <tr>
     <th>投稿者</th>
     <th>一言</th>
     <th>写真</th>
     <th>それな数</th>
+    <th>ネタ元駅</th>
+    <th>投稿日時</th>
   </tr>
 <% @netas.each do |neta| %>
   <tr>
@@ -20,6 +30,16 @@
     <td><%= image_tag(neta.image.url)  %></td>
     <% end %>
     <td><%= neta.favorites.count %></td>
+    <td>
+      <% if neta.stations.empty?%>
+      <%= "登録してません"  %>
+      <% else%>
+      <% neta.stations.each do |station| %>
+        <%= station.name %>
+      <% end %>
+      <% end %>
+    </td>
+    <td><%= l neta.created_at %></td>
     <td><%= link_to '詳細を確認する', neta_path(neta.id) %></td>
     <% if neta.user == current_user %>
     <td><%= link_to "ネタを編集する", edit_neta_path(neta.id), data: { confirm: '本当に編集していいですか？' } %></td>
@@ -28,8 +48,15 @@
     <td></td>
     <% end %>
 
+
   </tr>
 <% end %>
 </table>
 <br>
 <%= link_to '新しくネタを投稿する', new_neta_path %>
+<br>
+<%= link_to '駅一覧を見る', stations_path %>
+<br>
+<%= link_to "お気に入りの数順で並び替える", netas_path(sort_favoried: "true") %>
+<br>
+<%= paginate @netas %>

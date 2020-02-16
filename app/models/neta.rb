@@ -7,4 +7,6 @@ class Neta < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :station_neta, dependent: :destroy, foreign_key: 'neta_id'
   has_many :stations, through: :station_neta, source: :station
+  scope :desc_created, -> {order(created_at: :desc)}
+  
 end

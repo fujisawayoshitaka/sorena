@@ -20,6 +20,9 @@ gem 'devise-i18n-views'
 gem 'rails_admin', '~> 2.0'
 gem 'cancancan'
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'ransack'
+gem 'kaminari', '~> 0.17.0'
+gem 'kaminari-bootstrap', '~> 3.0.1'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

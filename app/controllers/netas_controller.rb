@@ -3,7 +3,16 @@ class NetasController < ApplicationController
     before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
 
   def index
-    @netas = Neta.all
+
+    @search = Neta.page(params[:page]).per(10).ransack(params[:q])
+    if params[:sort_favoried]
+      puts "sort_favoried"
+      @netas = @search.result(distinct: true).joins(:favorites).order("id")
+    else
+      puts "sort_favoriedじゃない"
+      @netas = @search.result(distinct: true).desc_created
+    end
+
   end
 
   def new

@@ -1,3 +1,12 @@
 <h1>駅詳細画面</h1>
 <p>駅名: <%= @station.name %></p>
 <p>路線: <%= @station.route %></p>
+<p>住人:
+  <% if @station.users.empty?%>
+  <%= "登録されてません"  %>
+  <% else%>
+  <% @station.users.each do |user| %>
+  <%= user.name + "さん"%>
+  <% end %>
+  <% end %>
+</p>
