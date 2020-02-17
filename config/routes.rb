@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       post :confirm
     end
   end
-  resources :favorites, only: [:create, :destroy]
+  resources :favorites, only: [:create, :destroy, :show]
   root to: "netas#index"
   resources :stations
 end

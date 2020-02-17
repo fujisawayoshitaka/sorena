@@ -17,5 +17,6 @@
     <% end %>
   <% end %>
 </p>
+<%= link_to 'お気に入りを見る',  favorite_path(@user.id) %>
 <%= link_to 'プロフィールを編集する',  edit_user_registration_path %>
 <%= link_to 'ネタ一覧に戻る', netas_path %>
