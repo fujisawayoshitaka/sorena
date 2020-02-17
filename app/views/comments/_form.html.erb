@@ -1,20 +1,14 @@
-<!-- この記述がblogのshow画面に表示されるコメント入力欄になります -->
-<%= form_with(model: [neta, comment]) do |form| %>
-  <% if comment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
-      <ul>
-      <% comment.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+<div class="comment-form">
+  <%= form_with(model: [neta, comment]) do |f| %>
+    <div class="input-field">
+      <%= f.text_area :content, class: "materialize-textarea" %>
+      <%= f.label :content, "コメント内容", class: "active" %>
+      <span class="helper-text" data-error="wrong" data-success="right">1から140文字以内</span>
+    </div>
+    <div class="comment-button">
+      <%= button_tag :type => "submit", :class =>"waves-effect waves-light btn" do %>
+        <%= t('.comment') %>
       <% end %>
-      </ul>
     </div>
   <% end %>
-  <div class="field">
-    <%= form.label :content %>
-    <%= form.text_area :content %>
-  </div>
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>
