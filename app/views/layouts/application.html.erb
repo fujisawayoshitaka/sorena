@@ -10,7 +10,7 @@
   </head>
 
   <body>
-    <header>
+    <header class="header">
       <% if user_signed_in? %>
         <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
         <li><%= link_to 'プロフィール', user_path(current_user.id)%></li>
@@ -23,5 +23,7 @@
     </header>
 
     <%= yield %>
+    <footer class="footer">
+    </footer>
   </body>
 </html>
