@@ -7,8 +7,8 @@ class User < ApplicationRecord
          has_many :favorites, dependent: :destroy
          has_many :favorite_netas, through: :favorites, source: :neta
          has_many :comments, dependent: :destroy
-         has_many :station_user, dependent: :destroy
-         has_many :stations, through: :station_user
+         has_many :nearest_stations, dependent: :destroy
+         has_many :stations, through: :nearest_stations, source: :station
 
          before_destroy do
            throw(:abort) if User.where(admin: true).count <= 1 && self.admin?
