@@ -21,14 +21,14 @@ pre {
 }
 
 a {
-  color: #000;
+  color: pink;
 
   &:visited {
-    color: #666;
+    color: pink;
   }
 
   &:hover {
-    color: #fff;
+    color: blue;
     background-color: #000;
   }
 }
@@ -85,28 +85,21 @@ label {
   display: block;
 }
 
+table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .content {
   text-align:  center;
 }
 
 .container{
   text-align: center;
+  overflow-y: scroll;
 }
 
 
 .image {
   text-align:  center;
-}
-
-.footer{
-  position: fixed;
-  bottom: 0;
-  width: 95.3%;
-  height: 100px;
-}
-
-.footer p {
-  font-size: 1rem;
-  text-align: center;
-  vertical-align: middle;
 }

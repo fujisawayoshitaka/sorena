@@ -12,6 +12,6 @@ Rails.application.routes.draw do
     end
   end
   resources :favorites, only: [:create, :destroy, :show]
-  root to: "netas#index"
+  root to: "stations#index"
   resources :stations
 end
