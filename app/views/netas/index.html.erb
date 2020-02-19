@@ -22,7 +22,7 @@
   </tr>
 <% @netas.each do |neta| %>
   <tr>
-    <td><%= neta.user.name %></td>
+    <td><%= link_to neta.user.name, user_path(neta.user.id) %></td>
     <td><%= neta.content %></td>
     <% if neta.image.blank?%>
     <td><%= "no image"  %></td>

@@ -17,6 +17,7 @@
     <% end %>
   <% end %>
 </p>
+<% if current_user == @user %>
 <%= link_to 'お気に入りを見る',  favorite_path(@user.id) %>
 <%= link_to 'プロフィールを編集する',  edit_user_registration_path %>
 <%= link_to 'ネタ一覧に戻る', netas_path %>
@@ -24,4 +25,5 @@
 <%= link_to '管理画面に遷移する', rails_admin_path %>
 <% else %>
   <p>あなたは一般ユーザーです</p>
+<% end %>
 <% end %>
