@@ -24,6 +24,8 @@ gem 'ransack'
 gem 'kaminari', '~> 0.17.0'
 gem 'kaminari-bootstrap', '~> 3.0.1'
 gem 'faker'
+gem 'rails_12factor', group: :production
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'pry-rails'
