@@ -4,16 +4,14 @@ before_action :set_neta, only: [:create, :edit, :update, :destroy]
   def create
   @comment = @neta.comments.build(comment_params)
   @comment.user_id = current_user.id
-
+  
   respond_to do |format|
     if @comment.save
           flash.now[:notice] = 'コメントが投稿されました'
           format.js { render :index }
-          format.html { redirect_to neta_path(id: @comment.neta_id) }
         else
           flash.now[:notice] = '文字数は1文字以上150文字以内にしてください'
           format.js { render :error }
-          format.html { redirect_to neta_path(id: @comment.neta_id) }
         end
       end
   end
@@ -24,7 +22,6 @@ before_action :set_neta, only: [:create, :edit, :update, :destroy]
      respond_to do |format|
        flash.now[:notice] = 'コメントが削除されました'
        format.js { render :index }
-       format.html { redirect_to neta_path(id: @comment.neta_id) }
      end
   end
 
@@ -33,7 +30,6 @@ before_action :set_neta, only: [:create, :edit, :update, :destroy]
     respond_to do |format|
       flash.now[:notice] = 'コメントの編集中'
       format.js { render :edit }
-      format.html { redirect_to neta_path(id: @comment.neta_id) }
     end
   end
 
@@ -43,11 +39,9 @@ before_action :set_neta, only: [:create, :edit, :update, :destroy]
         if @comment.update(comment_params)
           flash.now[:notice] = 'コメントが編集されました'
           format.js { render :index }
-          format.html { redirect_to neta_path(id: @comment.neta_id) }
         else
           flash.now[:notice] = '文字数は1文字以上150文字以内にしてください'
           format.js { render :edit_error }
-          format.html { redirect_to neta_path(id: @comment.neta_id) }
         end
       end
   end
