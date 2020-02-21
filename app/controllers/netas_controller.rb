@@ -7,7 +7,16 @@ class NetasController < ApplicationController
     @search = Neta.page(params[:page]).per(10).ransack(params[:q])
     if params[:sort_favoried]
       puts "sort_favoried"
-      @netas = @search.result(distinct: true).joins(:favorites).order("id")
+      # @netas = Neta.joins(:favorites).group(:neta_id).order('count(user_id)desc')
+      # @favorite_rank = Favorite.group_by(&:itself).map{ |key value| [key, value.count] }.to_h
+      # @netas = Neta.joins(:favorites)
+      # @netas = Neta.joins(:favorites).
+      #  group_by(:user_id).
+      #  order("count(user_id) desc").
+      #  limit(5)
+      @netas = Neta.select('netas.*', 'count(favorites.id) AS favorites').left_joins(:favorites).group('netas.id').order('favorites desc').page(params[:page]).per(10)
+
+      # @netas = Neta.joins(:favorites).group(:neta_id).order('count(user_id)desc')
     else
       puts "sort_favoriedじゃない"
       @netas = @search.result(distinct: true).desc_created
