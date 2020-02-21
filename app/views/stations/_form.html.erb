@@ -1,0 +1,21 @@
+<%= form_with(model: @station, local: true) do |form| %>
+<% if @station.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= @station.errors.count %>件のエラーがあります。</h2>
+    <ul>
+    <% @station.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+  <div class="station_name">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+  <div class="station_route">
+    <%= form.label :route %>
+    <%= form.text_field :route %>
+  </div>
+  <%= form.submit %>
+<% end %>

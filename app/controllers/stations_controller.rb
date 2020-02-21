@@ -32,8 +32,11 @@ before_action :set_station, only: [:edit, :show, :update, :destroy]
   end
 
   def destroy
-    @station.destroy
-    redirect_to stations_path, notice: 'stationは削除されました'
+    if @station.destroy
+      redirect_to stations_path, notice: 'stationは削除されました'
+    else
+      redirect_to stations_path, notice: '根岸線は不滅です'
+    end
   end
 
   private

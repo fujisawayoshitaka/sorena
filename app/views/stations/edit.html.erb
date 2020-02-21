@@ -1,11 +1,2 @@
-<%= form_with(model: @station) do |form| %>
-  <div class="station_name">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-  <div class="station_route">
-    <%= form.label :route %>
-    <%= form.text_field :route %>
-  </div>
-  <%= form.submit %>
-<% end %>
+<h2>駅を編集する</h2>
+<%= render 'form' %>
