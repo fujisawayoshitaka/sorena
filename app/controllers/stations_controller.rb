@@ -27,7 +27,7 @@ before_action :set_station, only: [:edit, :show, :update, :destroy]
     if @station.update(station_params)
       redirect_to stations_path, notice: 'stationは編集されました'
     else
-      render :edit
+      render :edit, notice: '根岸線は不滅です'
     end
   end
 
