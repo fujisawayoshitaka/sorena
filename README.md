@@ -18,7 +18,7 @@
 ## 機能一覧
 
 1. ログイン機能
-2. 駅名ごとに独立したNeta投稿機能
+2. 駅(rabel)登録機能
 3. Sorena（お気に入り)機能
 4. Netaに関するコメント機能
 5. ユーザー管理機能
@@ -37,7 +37,7 @@ https://docs.google.com/spreadsheets/d/1RtC_5ifdGQawObQW1Nrd6X_kwMgno-VV-vMizaLE
 ### ワイヤーフレーム
 https://docs.google.com/spreadsheets/d/1RtC_5ifdGQawObQW1Nrd6X_kwMgno-VV-vMizaLEm4o/edit#gid=1788653730
 ### 使用予定Gem
-ログイン機能　device
+ログイン機能　device,rails_admin
 検索機能　ransack
 cssフレームワーク　bootstrap
-jsフレームワーク　jquery-rails、ratyrate
+jsフレームワーク　jquery-rails

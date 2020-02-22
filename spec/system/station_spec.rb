@@ -1,5 +1,5 @@
 require 'rails_helper'
-RSpec.describe '駅登録機能', type: :system do
+RSpec.describe '駅(label)登録機能', type: :system do
   before do
     @station = FactoryBot.create(:station)
     @station1 = FactoryBot.create(:station1)
