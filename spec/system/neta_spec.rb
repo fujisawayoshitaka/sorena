@@ -70,6 +70,10 @@ end
 
     context 'ネタを削除した場合' do
       it '削除したネタが一覧画面から消去される' do
+        visit new_neta_path
+        fill_in 'neta_content', with: 'yoshitaka2'
+        click_button '登録する'
+        click_button '投稿する'
         click_link 'ネタを削除する', match: :first
         page.driver.browser.switch_to.alert.accept
         expect(page).not_to have_text 'yoshitaka2'
