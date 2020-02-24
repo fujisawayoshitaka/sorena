@@ -122,16 +122,36 @@ end
      end
 
      context 'コメント機能' do
-       it 'その通知がされ自分のお気に入りページにも登録される' do
+       it 'コメントを作成した場合コメントが表示される' do
+         visit netas_path
          click_link '詳細を確認する', match: :first
+         fill_in('comment_content', with: 'youkoudai')
+         click_button 'Comment'
+         expect(page).to have_content 'コメントが投稿されました'
+         expect(page).to have_content 'youkoudai'
        end
 
-       it 'その通知がされ自分のお気に入りページにも登録される' do
+       it 'コメントが編集できる' do
+         visit netas_path
          click_link '詳細を確認する', match: :first
+         fill_in('comment_content', with: 'hongoudai')
+         click_button 'Comment'
+         click_link 'Edit'
+         fill_in('comment_edit', with: 'hongoudai')
+         click_button '送信'
+         expect(page).to have_content 'コメントが編集されました'
+         expect(page).to have_content 'hongoudai'
        end
 
-       it 'その通知がされ自分のお気に入りページにも登録される' do
+       it 'コメントが削除できる' do
+         visit netas_path
          click_link '詳細を確認する', match: :first
+         fill_in('comment_content', with: 'youkoudai')
+         click_button 'Comment'
+         click_link 'Delete'
+         page.driver.browser.switch_to.alert.accept
+         expect(page).to have_content 'コメントが削除されました'
+         expect(page).not_to have_content 'youkoudai'
        end
 
      end

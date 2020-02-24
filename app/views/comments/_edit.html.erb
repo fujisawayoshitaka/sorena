@@ -2,7 +2,7 @@
 <div id="comment_edit_form">
   <%= form_with(model: [neta, comment]) do |f| %>
     <div class="input-field">
-      <%= f.text_area :content, class: "materialize-textarea", id: "comment_content_#{neta.id}" %>
+      <%= f.text_area :content, class: "materialize-textarea", id: "comment_edit" %>
       <%= f.label :content, class: "active" %>
       <%= button_tag :type => "submit", :class =>"btn waves-effect waves-light" do %>
         送信
