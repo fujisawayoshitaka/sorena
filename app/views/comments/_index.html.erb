@@ -16,9 +16,9 @@
       </div>
       <span>投稿日時:<%= l comment.created_at %></span>
       <% if comment.user == current_user %>
-        <span class="badge"><%= link_to t('.delete'), neta_comment_path(comment.neta_id, comment.id), method: :delete, remote: true,
+        <span class="badge"><%= link_to t('削除'), neta_comment_path(comment.neta_id, comment.id), method: :delete, remote: true,
                                         data: { confirm: "本当に削除しますか?"} %></span>
-        <span class="badge"><%= link_to t('.edit'), edit_neta_comment_path(neta, comment), remote: true %></span>
+        <span class="badge"><%= link_to t('編集'), edit_neta_comment_path(neta, comment), remote: true %></span>
       <% end %>
 
     </div>

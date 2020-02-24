@@ -11,7 +11,7 @@ before_action :set_station, only: [:edit, :show, :update, :destroy]
   def create
     @station = Station.new(station_params)
     if @station.save
-      redirect_to stations_path, notice: 'stationは作成されました'
+      redirect_to stations_path, notice: '駅は作成されました'
     else
       render :new
     end
@@ -25,7 +25,7 @@ before_action :set_station, only: [:edit, :show, :update, :destroy]
 
   def update
     if @station.update(station_params)
-      redirect_to stations_path, notice: 'stationは編集されました'
+      redirect_to stations_path, notice: '駅は編集されました'
     else
       render :edit, notice: '根岸線は不滅です'
     end
@@ -33,7 +33,7 @@ before_action :set_station, only: [:edit, :show, :update, :destroy]
 
   def destroy
     if @station.destroy
-      redirect_to stations_path, notice: 'stationは削除されました'
+      redirect_to stations_path, notice: '駅は削除されました'
     else
       redirect_to stations_path, notice: '根岸線は不滅です'
     end

@@ -136,7 +136,7 @@ end
          click_link '詳細を確認する', match: :first
          fill_in('comment_content', with: 'hongoudai')
          click_button 'Comment'
-         click_link 'Edit'
+         click_link '編集'
          fill_in('comment_edit', with: 'hongoudai')
          click_button '送信'
          expect(page).to have_content 'コメントが編集されました'
@@ -148,7 +148,7 @@ end
          click_link '詳細を確認する', match: :first
          fill_in('comment_content', with: 'youkoudai')
          click_button 'Comment'
-         click_link 'Delete'
+         click_link '削除'
          page.driver.browser.switch_to.alert.accept
          expect(page).to have_content 'コメントが削除されました'
          expect(page).not_to have_content 'youkoudai'

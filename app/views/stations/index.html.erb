@@ -11,10 +11,9 @@
     <td><%= station.name %></td>
     <td><%= station.route %></td>
     <td><%= link_to '詳細を確認する', station_path(station.id) %></td>
-    <td><%= link_to "駅を編集する", edit_station_path(station.id) %></td>
-    <td><%= link_to '駅を削除する', station_path(station.id), method: :delete %></td>
   </tr>
 <% end %>
 </table>
+
 <%= link_to 'ネタ一覧を見る', netas_path %>
 <%= link_to '新しく駅を登録する', new_station_path %>

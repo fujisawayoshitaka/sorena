@@ -6,7 +6,7 @@
   <% else%>
   <%= image_tag(@neta.image.url)  %>
   <% end %>
-  
+
 </p>
 <p><strong>内容</strong>：<%= @neta.content %></p>
 <p><strong>ネタ元の駅</strong>:
@@ -34,7 +34,10 @@
   <%= render partial: 'comments/form', locals: { comment: @comment, neta: @neta } %>
   <% end %>
 </div>
+<br>
+<p>
 <% if @neta.user == current_user %>
-<%= link_to 'Edit', edit_neta_path(@neta) %>
+  <%= link_to '編集する', edit_neta_path(@neta) %>
 <% end %>
-<%= link_to 'Back', netas_path %>
+</p>
+<p><%= link_to 'ネタ一覧に戻る', netas_path %></p>
