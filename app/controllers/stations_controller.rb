@@ -21,6 +21,7 @@ before_action :set_station, only: [:edit, :show, :update, :destroy]
   end
 
   def show
+    #@netas = @station.netas
   end
 
   def update
