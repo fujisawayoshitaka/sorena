@@ -5,12 +5,16 @@
 <% end %>
 
 <%= search_form_for @search do |f| %>
-  <% Station.all.each do |station| %>
-    <%= f.check_box :stations_id_eq_any, { multiple: true, checked: station[:checked], disabled: station[:disabled], include_hidden: false }, station[:id] %>
-    <station><%= station.name %></station>
-  <% end %>
+  <%# Station.all.each do |station| %>
+    <%#= f.check_box :stations_id_eq_any, { multiple: true, checked: station[:checked], disabled: station[:disabled], include_hidden: false }, station[:id] %>
+    <station><%#= station.name %></station>
+    <%= f.collection_check_boxes(:stations_id_eq_any, Station.all, :id, :name) %>
       <%= f.submit "検索" %>
   <% end %>
+    <%# end %>
+
+
+
 
 <br>
 <br>

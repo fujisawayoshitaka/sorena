@@ -1,10 +1,13 @@
 <h1><%= @user.name + "さんのお気に入り" %></h1>
-<h1>ブログ一覧</h1>
-
+<h1>ネタ一覧</h1>
+<% if @favorites.blank?%>
+<br>
+<br>
+<h2><%= "登録されてません"  %></h2>
+<% else%>
 <table>
   <tr>
     <th>投稿者</th>
-    <th>タイトル</th>
     <th>内容</th>
     <th>画像</th>
   </tr>
@@ -13,7 +16,6 @@
   <tr>
     <td><%= favorite.user.name %></td>
     <td><%= favorite.content %></td>
-    <td><%= favorite.image %></td>
     <% if favorite.image.blank?%>
       <td><%= "no image"  %></td>
     <% else%>
@@ -23,4 +25,7 @@
 <% end %>
 </table>
 
+<% end %>
+<br>
+<br>
 <%= link_to '新しくネタを投稿する', new_neta_path %>

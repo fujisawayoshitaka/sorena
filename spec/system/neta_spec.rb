@@ -1,183 +1,163 @@
 require 'rails_helper'
-RSpec.describe 'タスク管理機能', type: :system do
+RSpec.describe 'ネタ管理機能', type: :system do
   before do
-    #FactoryBot.create(:label)
-    #FactoryBot.create(:label2)
-    FactoryBot.create(:user)
-    visit new_session_path
-    fill_in 'Email', with: '1@gmail.com'
-    fill_in 'Password', with: 'password'
-    click_button 'Log in'
-
-    click_link 'netaを作成する'
-
+    @user = FactoryBot.create(:user)
+    @user1 = FactoryBot.create(:user1)
+    @user2 = FactoryBot.create(:user2)
+    @neta = FactoryBot.create(:neta, user: @user)
+    @neta1 = FactoryBot.create(:neta1, user: @user)
+    @neta2 = FactoryBot.create(:neta2, user: @user1)
+    @neta3 = FactoryBot.create(:neta3, user: @user2)
+    FactoryBot.create(:station)
+    FactoryBot.create(:station1)
+    FactoryBot.create(:station2)
+    FactoryBot.create(:station3)
+    FactoryBot.create(:favorite, user_id: @user.id, neta_id: @neta.id)
+    FactoryBot.create(:favorite, user_id: @user.id, neta_id: @neta1.id)
+    FactoryBot.create(:favorite, user_id: @user1.id, neta_id: @neta.id)
+    visit new_user_session_path
+    fill_in "メールアドレス", with: "1@gmail.com"
+    fill_in "パスワード", with: "password"
+    click_button "Log in"
   end
 
-  describe 'タスク一覧画面' do
-    context 'タスクを作成した場合' do
-      it '作成済みのタスクが表示されること' do
-
-      visit new_task_path
-
-      fill_in 'task_title', with: 'yoshitaka1'
-      fill_in 'task_content', with: 'yoshitaka1'
-
-      find("option[value='未着手']").select_option
-
+  describe 'ネタ一覧画面' do
+    context 'ネタを作成した場合' do
+      it '作成済みのネタが表示されること' do
+      visit new_neta_path
+      fill_in 'neta_content', with: '洋光台'
+      attach_file '写真', "#{Rails.root}/spec/images/zwz_AAQj.png"
       click_button '登録する'
-
-      expect(page).to have_content 'yoshitaka1'
-      end
+      click_button '投稿する'
+      expect(page).to have_content '洋光台'
+      expect(page).to have_selector("img[src$='zwz_AAQj.png']")
     end
-    context '複数のタスクを作成した場合' do
-      it 'タスクが作成日時の降順に並んでいること' do
-        visit new_task_path
+  end
 
-        fill_in 'task_title', with: 'yoshitaka2'
-        fill_in 'task_content', with: 'yoshitaka2'
+  context 'ネタを編集した場合' do
+    it '編集済みのネタが表示されること' do
+    visit netas_path
+    click_link 'ネタを編集する', match: :first
+    page.driver.browser.switch_to.alert.accept
+    fill_in 'neta_content', with: '根岸線'
+    click_button '更新する'
+    expect(page).to have_content '根岸線'
+  end
+end
 
-        find("option[value='未着手']").select_option
 
+    context '複数のネタを作成した場合' do
+      it 'ネタが作成日時の降順に並んでいること' do
+        visit new_neta_path
+        fill_in 'neta_content', with: 'yoshitaka2'
         click_button '登録する'
-        visit new_task_path
-        fill_in 'task_title', with: 'yoshitaka1'
-        fill_in 'task_content', with: 'yoshitaka1'
-
-        find("option[value='未着手']").select_option
-
+        click_button '投稿する'
+        visit new_neta_path
+        fill_in 'neta_content', with: 'yoshitaka1'
         click_button '登録する'
-        visit tasks_path
+        click_button '投稿する'
         expect(page).to have_text /.*yoshitaka1.*yoshitaka2.*/m
       end
     end
-    context '複数のタスクを作成後、終了期限でソートのタグをクリックすると' do
-      it '終了期限の昇順に並んでいること' do
-        visit new_task_path
 
-        fill_in 'task_title', with: 'yoshitaka2'
-        fill_in 'task_content', with: 'yoshitaka2'
-
-        find("option[value='未着手']").select_option
-
-        click_button '登録する'
-        visit new_task_path
-        fill_in 'task_title', with: 'yoshitaka1'
-        fill_in 'task_content', with: 'yoshitaka1'
-
-        find("option[value='未着手']").select_option
-
-        click_button '登録する'
-        visit tasks_path
-        click_link '終了期限でソートする'
-        expect(page).to have_text /.*yoshitaka2.*yoshitaka1.*/m
+    context 'お気に入りの数順に並べた場合' do
+      it 'お気に入りの順に並んでいること' do
+        visit netas_path
+        click_link 'お気に入りの数順で並び替える'
+        expect(page).to have_text /.*neta.*neta1.*/m
       end
     end
 
-    context '複数のタスクを作成後、状態の検索を行うと' do
-      it '指定した状態を持ったタスクのみ抽出できること' do
-
-        visit new_task_path
-
-        fill_in 'task_title', with: 'yoshitaka2'
-        fill_in 'task_content', with: 'yoshitaka2'
-
-        find("option[value='未着手']").select_option
-        click_button '登録する'
-        visit new_task_path
-        fill_in 'task_title', with: 'yoshitaka1'
-        fill_in 'task_content', with: 'yoshitaka1'
-
-        find("option[value='着手']").select_option
-
-        click_button '登録する'
-        visit tasks_path
-        find("option[value='未着手']").select_option
-        click_button '検索'
-        expect(page).to have_text '未着手'
-      end
-    end
-
-
-  end
-
-  describe 'タスク登録画面' do
-
-    context '必要項目を入力して、createボタンを押した場合' do
-      it 'データが保存されること' do
-
-      visit new_task_path
-      fill_in 'task_title', with: 'task'
-      fill_in 'task_content', with: 'task'
-      find("option[value='未着手']").select_option
-
-
-
-      click_button '登録する'
-      expect(page).to have_content 'task'
+    context 'ネタを削除した場合' do
+      it '削除したネタが一覧画面から消去される' do
+        click_link 'ネタを削除する', match: :first
+        page.driver.browser.switch_to.alert.accept
+        expect(page).not_to have_text 'yoshitaka2'
       end
     end
   end
 
-
-  describe 'タスク詳細画面' do
-     context '任意のタスク詳細画面に遷移した場合' do
-       it '該当タスクの内容が表示されたページに遷移すること' do
-         visit new_task_path
-         fill_in 'task_title', with: 'task'
-         fill_in 'task_content', with: 'task'
-         find("option[value='未着手']").select_option
+  describe 'ネタ詳細画面' do
+     context '任意のネタ詳細画面に遷移した場合' do
+       it '該当ネタの内容が表示されたページに遷移すること' do
+         visit new_neta_path
+         fill_in 'neta_content', with: 'youkoudai'
+         check "洋光台"
          click_button '登録する'
-         visit tasks_path
-
-         click_link 'Show'
-         expect(page).to have_content 'task'
-       end
-     end
-  end
-
-  describe 'ラベル機能のテスト' do
-     context 'ラベルを付与したタスクを作成し' do
-       it '該当タスクの詳細ページに遷移するとラベルの内容が記述されている' do
-         visit new_task_path
-
-         fill_in 'task_title', with: '1'
-         fill_in 'task_content', with: '1'
-         find("option[value='未着手']").select_option
-         checkbox = find('#task_label_ids_1')
-         check 'task_label_ids_1'
-         click_button '登録する'
-         visit tasks_path
-         click_link 'Show'
-         expect(page).to have_content 'sample1'
+         click_button '投稿する'
+         click_link '詳細を確認する', match: :first
+         expect(page).to have_content '内容：youkoudai'
+         expect(page).to have_content 'ネタ元の駅: 洋光台'
        end
      end
 
-     context 'ラベル検索すると' do
-       it 'その検索したラベルを持っている該当タスクのみ表示される' do
-         visit new_task_path
-         fill_in 'task_title', with: 'sample1'
-         fill_in 'task_content', with: 'sample1'
-         find("option[value='未着手']").select_option
-         checkbox = find('#task_label_ids_1')
-         check 'task_label_ids_1'
+     context 'お気に入り機能' do
+       it 'お気に入りボタンを押すとその通知がされ自分のお気に入りページにも登録される' do
+         visit new_neta_path
+         fill_in 'neta_content', with: 'youkoudai'
          click_button '登録する'
-         visit new_task_path
-         fill_in 'task_title', with: 'sample2'
-         fill_in 'task_content', with: 'sample2'
-         find("option[value='未着手']").select_option
-         checkbox = find('#task_label_ids_2')
-         check 'task_label_ids_2'
+         click_button '投稿する'
+         click_link '詳細を確認する', match: :first
+         click_link "お気に入りする"
+         expect(page).to have_content 'お気に入り登録しました'
+         click_link 'プロフィール'
+         click_link 'お気に入りを見る'
+         expect(page).to have_content 'youkoudai'
+       end
+       it 'お気に入り解除ボタンを押すとその通知がされ自分のお気に入りページにも反映される' do
+         visit new_neta_path
+         fill_in 'neta_content', with: 'youkoudai'
          click_button '登録する'
-         visit tasks_path
-         fill_in 'label_search', with: 'sample2'
+         click_button '投稿する'
+         click_link '詳細を確認する', match: :first
+         click_link "お気に入りする"
+         expect(page).to have_content 'お気に入り登録しました'
+         click_link '詳細を確認する', match: :first
+         click_link "お気に入り解除する"
+         expect(page).to have_content 'お気に入り解除しました'
+         click_link 'プロフィール'
+         click_link 'お気に入りを見る'
+         expect(page).not_to have_content 'youkoudai'
+       end
+     end
+
+     context 'コメント機能' do
+       it 'その通知がされ自分のお気に入りページにも登録される' do
+         click_link '詳細を確認する', match: :first
+       end
+
+       it 'その通知がされ自分のお気に入りページにも登録される' do
+         click_link '詳細を確認する', match: :first
+       end
+
+       it 'その通知がされ自分のお気に入りページにも登録される' do
+         click_link '詳細を確認する', match: :first
+       end
+
+     end
+
+  end
+
+  describe 'ransackによる検索機能のテスト' do
+     context '駅（ラベル）を付与したネタを作成し' do
+       it '該当ネタの詳細ページに遷移するとラベルの内容が記述されている' do
+         visit new_neta_path
+         fill_in 'neta_content', with: '1'
+         check '洋光台'
+         click_button '登録する'
+         click_button '投稿する'
+         visit new_neta_path
+         fill_in 'neta_content', with: 'isogomade'
+         check '磯子'
+         click_button '登録する'
+         click_button '投稿する'
+         check '洋光台'
          click_button '検索'
-         expect(page).not_to have_content 'sample1'
-         expect(page).to have_content 'sample2'
+         expect(page).to have_content '洋光台'
+         expect(page).not_to have_content "isogomade"
        end
      end
 
-
+   end
 
   end
-
-end
